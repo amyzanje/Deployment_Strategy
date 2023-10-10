@@ -25,7 +25,7 @@ spec:
     matchLabels:
       app: my-app
   strategy:
-    type: Rolling
+    type: RollingUpdate
   selector:
     matchLabels:
       app: my-app
