@@ -5,9 +5,9 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 3
+  replicas: 10
   strategy:
-    type: Recreate
+    type: Rolling
 
   # The selector field tell the deployment which pod to update with
   # the new version. This field is optional, but if you have labels
