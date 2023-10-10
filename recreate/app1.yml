@@ -20,12 +20,12 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 3
+  replicas: 10
   selector:
     matchLabels:
       app: my-app
   strategy:
-    type: Recreate
+    type: Rolling
   selector:
     matchLabels:
       app: my-app
