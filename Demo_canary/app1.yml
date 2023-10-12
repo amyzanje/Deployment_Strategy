@@ -1,33 +1,15 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-app
-  labels:
-    app: my-app
-spec:
-  type: NodePort
-  ports:
-  - name: http
-    port: 80
-    targetPort: http
-    nodePort: 30001
-    
-  selector:
-    app: my-app
----
-apiVersion: apps/v1
-kind: Deployment
+# This example demonstrates a Rollout using the canary update strategy with a customized rollout
+# plan. The prescribed steps initially sets a canary weight of 20%, then pauses indefinitely. Once
+# resumed, the rollout performs a gradual, automated 20% weight increase until it reaches 100%.
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: my-app
   labels:
     app: my-app
 spec:
   replicas: 5
-  selector:
-    matchLabels:
-      app: my-app
-  # strategy:
-  #   type: Recreate
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: my-app
@@ -35,15 +17,26 @@ spec:
     metadata:
       labels:
         app: my-app
-        version: v1.0.0
     spec:
       containers:
-      - name: my-app
-        image: argoproj/rollouts-demo:red
-        ports:
-        - name: http
-          containerPort: 8080
-        env:
-        - name: VERSION
-          value: v1.0.0
-        
+        - name: my-app
+          image: argoproj/rollouts-demo:blue
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: VERSION
+              value: v1.0.0
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        # The following pause step will pause the rollout indefinitely until manually resumed.
+        # Rollouts can be manually resumed by running `kubectl argo rollouts promote ROLLOUT`
+        - pause: {}
+        - setWeight: 40
+        - pause: { duration: 40s }
+        - setWeight: 60
+        - pause: { duration: 20s }
+        - setWeight: 80
+        - pause: { duration: 20s }
