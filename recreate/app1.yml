@@ -10,6 +10,8 @@ spec:
   - name: http
     port: 80
     targetPort: http
+    nodePort: 30001
+    
   selector:
     app: my-app
 ---
@@ -20,12 +22,12 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 10
+  replicas: 5
   selector:
     matchLabels:
       app: my-app
   strategy:
-    type: Rolling
+    type: Recreate
   selector:
     matchLabels:
       app: my-app
@@ -37,23 +39,12 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: deekshithsn/k8s-deployment-strategies
+        image: argoproj/rollouts-demo:blue
         ports:
         - name: http
           containerPort: 8080
-        - name: probe
-          containerPort: 8086
+        
         env:
         - name: VERSION
           value: v1.0.0
-        livenessProbe:
-          httpGet:
-            path: /live
-            port: probe
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: probe
-          periodSeconds: 5
+
