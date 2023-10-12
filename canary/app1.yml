@@ -26,8 +26,8 @@ spec:
   selector:
     matchLabels:
       app: my-app
-  strategy:
-    type: Rolling
+  # strategy:
+  #   type: Recreate
   selector:
     matchLabels:
       app: my-app
