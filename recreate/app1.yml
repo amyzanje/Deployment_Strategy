@@ -35,7 +35,7 @@ spec:
     metadata:
       labels:
         app: my-app
-        version: v2.0.0
+        version: v1.0.0
     spec:
       containers:
       - name: my-app
