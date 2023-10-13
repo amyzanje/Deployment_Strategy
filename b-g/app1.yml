@@ -30,5 +30,5 @@ spec:
   strategy:
     blueGreen:
       autoPromotionEnabled: false
-      activeService: bluegreen-demo
-      previewService: bluegreen-demo-preview
+      activeService: my-app-blue
+      # previewService: 
