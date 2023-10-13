@@ -8,13 +8,13 @@ metadata:
     nginx.ingress.kubernetes.io/app-root: /
 spec:
   rules:
-  - host: ec2-3-95-254-205.compute-1.amazonaws.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: my-app-blue
-            port:
-              name: http
+    - host: ec2-3-95-254-205.compute-1.amazonaws.com:8080
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-blue
+                port:
+                  name: http
