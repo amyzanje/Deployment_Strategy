@@ -22,12 +22,12 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 5
+  replicas: 20
   selector:
     matchLabels:
       app: my-app
   strategy:
-    type: Rolling
+    type: Recreate
   selector:
     matchLabels:
       app: my-app
@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: argoproj/rollouts-demo:red
+        image: argoproj/rollouts-demo:orange
         # Set orange
         ports:
         - name: http
