@@ -1,0 +1,34 @@
+# This example demonstrates a Rollout using the canary update strategy with a customized rollout
+# plan. The prescribed steps initially sets a canary weight of 20%, then pauses indefinitely. Once
+# resumed, the rollout performs a gradual, automated 20% weight increase until it reaches 100%.
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  replicas: 5
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: argoproj/rollouts-demo:blue
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: VERSION
+              value: v1.0.0
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      activeService: bluegreen-demo
+      previewService: bluegreen-demo-preview
