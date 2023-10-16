@@ -1,19 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cafe-ingress-with-annotations
-  annotations:
-    ingress.kubernetes.io/ssl-redirect: "false"
-    # nginx.org/proxy-read-timeout: "20s"
-    # nginx.org/client-max-body-size: "4m"
-    # nginx.org/server-snippets: |
-    #   location / {
-    #     return 302 /;
-    #   }
+  name: cafe-ingress
 spec:
   rules:
-    # - host: a875328741e7943dd87854d529a6d427-1237272422.us-east-1.elb.amazonaws.com
-      http:
+    # - host: example.com
+    - http:
         paths:
           - path: /
             pathType: Prefix
