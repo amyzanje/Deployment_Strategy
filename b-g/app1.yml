@@ -7,19 +7,19 @@ metadata:
   name: my-app
   labels:
     app: my-app
-    VERSION: v2.0.0
+    VERSION: v1.0.0
 spec:
   replicas: 5
   revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: my-app
-      VERSION: v2.0.0
+      VERSION: v1.0.0
   template:
     metadata:
       labels:
         app: my-app
-        VERSION: v2.0.0
+        VERSION: v1.0.0
     spec:
       containers:
         - name: my-app
@@ -29,9 +29,9 @@ spec:
               containerPort: 8080
           env:
             - name: VERSION
-              value: v2.0.0
+              value: v1.0.0
   strategy:
     blueGreen:
       autoPromotionEnabled: false
-      activeService: my-app-blue
-      previewService: my-app-green
+      activeService: my-app-green
+      # previewService: my-app-green
