@@ -12,8 +12,7 @@ metadata:
       }
 spec:
   rules:
-    - host: cafe.example.com
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
