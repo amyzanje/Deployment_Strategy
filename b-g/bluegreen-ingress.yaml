@@ -4,15 +4,15 @@ metadata:
   name: cafe-ingress-with-annotations
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
-    # nginx.org/proxy-read-timeout: "20s"
-    # nginx.org/client-max-body-size: "4m"
-    # nginx.org/server-snippets: |
-    #   location / {
-    #     return 302 /coffee;
-    #   }
+    nginx.org/proxy-read-timeout: "20s"
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/server-snippets: |
+      location / {
+        return 302 /;
+      }
 spec:
   rules:
-    - host: a875328741e7943dd87854d529a6d427-1237272422.us-east-1.elb.amazonaws.com
+    # - host: a875328741e7943dd87854d529a6d427-1237272422.us-east-1.elb.amazonaws.com
       http:
         paths:
           - path: /
@@ -22,10 +22,3 @@ spec:
                 name: my-app-green
                 port:
                   number: 80
-        # - path: /
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: my-app-blue
-        #       port:
-        #         number: 80
