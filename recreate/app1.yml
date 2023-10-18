@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: argoproj/rollouts-demo:orange
+        image: argoproj/rollouts-demo:red
         # Set orange
         ports:
         - name: http
